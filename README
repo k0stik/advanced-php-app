@@ -1,0 +1,42 @@
+
+== Install project ==
+
+1. Install libs
+
+> composer update
+
+2. Run tests
+
+> php vendor/bin/phpunit --bootstrap tests/bootstrap.php tests/
+
+3. Run project
+
+> cd public/
+> php -S localhost:8000
+
+4. Open 'http://localhost:8000' on your web browser
+
+
+== Development level ==
+
+1. Create propel schema.yml
+
+> php vendor/bin/propel database:reverse --output-dir etc 'mysql:host=<HOST>;dbname=<DBNAME>;user=<USER>;password=<PASS>'
+
+2. Add model namespase if need
+
+Open schema.yml config and add namespace="<NAMESPACE>" attribute to the database tag
+
+3. Build model 
+
+> php vendor/bin/propel model:build --input-dir ./etc --output-dir ./app/lib -vv
+
+4. Add model libs to composer's autoload
+
+> vim composer.json 
+>
+> +    "autoload": { 
+> +      "classmap": ["app/lib/Engine"] 
+> +    } 
+
+
